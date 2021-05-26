@@ -1,9 +1,17 @@
 let canvas, ctx;
 
-var cols=10;
-var rows=10;
-//https://stackoverflow.com/questions/30738717/javascript-canvas-clear-redraw
-// setup config variables and start the program
+var loading = 0;
+var timeout;
+
+//3.0 Fix the x and y
+//3.5 When you click on a box it populates that box
+  //Start by identifying where on the 2d array...
+  //then create a live cell there in lifeCycle.
+  //then go clear canvas
+  //then repopulate
+  //make the paused generation grey colored and not black.
+//4. fix the canvas to fit the screen better - maybe
+//5. add a time buffer
 
 function init () {
   canvas = document.getElementById('gameCanvas');
@@ -17,7 +25,19 @@ function init () {
   [0,0,0,0,0,0,0],
   [0,0,0,0,0,0,0]];
 
-  drawOutGenerations(lifeCycle,10);
+  drawOutGenerations(lifeCycle,2);
+
+
+}
+
+function drawEmpty(){
+  for(var i=0;i<6;i++){
+      for(var j=0;j<7;j++){
+        var x = i*30;
+        var y=j*30;
+        ctx.strokeRect(x,y,30,30);
+      }
+    }
 }
 
 function draw(population){
@@ -115,13 +135,29 @@ function nextGeneration(neighbors,lifeCycle){
   return population;
 }
 
+function onClickDraw(){
+  if(loading==0){
+    var gens = Math.round(document.getElementById("gen").value);
+    drawOutGenerations(lifeCycle,gens)
+  }
+}
+
+function abort(){
+  clearTimeout(timeout);
+  loading = 0;
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  drawEmpty();
+  var gens = document.getElementById("demo").innerHTML = "generations left: ";
+}
 
 function drawOutGenerations(population, generations){
   var gens = document.getElementById("demo").innerHTML = "generations left: " + generations;
   draw(population);
-  setTimeout(function (){
+  timeout = setTimeout(function (){
+    loading++;
    
     if(generations==0){
+      loading=0;
       return;
     }
     var neighborsOfPopulation = neighborArray(population);
@@ -133,5 +169,6 @@ function drawOutGenerations(population, generations){
   }, 1000);
 
 } 
+
 
 
