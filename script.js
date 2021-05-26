@@ -17,7 +17,6 @@ function init () {
   [0,0,0,0,0,0,0],
   [0,0,0,0,0,0,0]];
 
-  var gens = document.getElementById("demo").innerHTML;
   drawOutGenerations(lifeCycle,10);
 }
 
@@ -118,6 +117,7 @@ function nextGeneration(neighbors,lifeCycle){
 
 
 function drawOutGenerations(population, generations){
+  var gens = document.getElementById("demo").innerHTML = "generations left: " + generations;
   draw(population);
   setTimeout(function (){
    
