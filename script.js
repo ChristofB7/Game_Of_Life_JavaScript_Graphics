@@ -4,8 +4,8 @@ var loading = 0;
 var timeout;
 
 var grid;
-var cols = 20;
-var rows = 20;
+var cols;
+var rows;
 var w = 20;
 
 var lifeCycle;
@@ -100,15 +100,19 @@ function countNeighbors(posX,posY){
  
   for(var i=-1;i<2;i++){
     for(var j=-1;j<2;j++){
-      var n = (posX+i+cols)%cols;
-      var m = (posY+j+rows)%rows;
-      if(grid[n][m].filled==true){
+      var n = posX+i;
+      var m = posY+j;
+
+      if(n<0||m<0||n>=cols||m>=rows){
+        continue;
+      }
+      else if(grid[n][m].filled==true){
         if(i==0&&j==0){
           continue;
         }
         else{
-          console.log("current cell "+posX+" "+posY);
-          console.log("Neighbor "+(posX+i)+ " "+(posY+j));
+          // console.log("current cell "+posX+" "+posY);
+          // console.log("Neighbor "+(posX+i)+ " "+(posY+j));
           neighbors++;
         }
       }
@@ -162,13 +166,6 @@ function nextGeneration(){
   }
   drawGrid();
 }
-
-// function onClickDraw(){
-//   if(loading==0){
-//     var gens = Math.round(document.getElementById("gen").value);
-//     drawOutGenerations(lifeCycle,gens)
-//   }
-// }
 
 // function abort(){
 //   clearTimeout(timeout);
