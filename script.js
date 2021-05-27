@@ -12,6 +12,10 @@ var lifeCycle;
 
 document.addEventListener('DOMContentLoaded', init);
 
+//Left to do:
+//multiple generations
+
+
 function make2DArray(m, n){
   let arr = new Array(m); // create an empty array of length n
   for (var i = 0; i < m; i++) {
@@ -40,27 +44,40 @@ function init () {
 }
 
 function clickOn(event) {
-  var x = event.offsetX;
-  var y = event.offsetY;
-  //console.log("MOUSE: "+x+" "+y);
-  // var coords = "X coords: " + x + ", Y coords: " + y;
-  // document.getElementById("demo").innerHTML = coords;
-  for(var i=0;i<cols;i++){
-    for(var j=0;j<rows;j++){
-      var cell = grid[i][j];
-      if(cell.contains(x, y)){
-        if(cell.filled==true){
-          cell.clear(ctx);
-        }
-        else{
-          cell.filled=true;
-        }
-        document.getElementById("demo").innerHTML = countNeighbors(i,j);
-        drawGrid();
-      }
-    }
-  }
+  if(loading>0){
 
+  }
+  else{
+    var x = event.offsetX;
+      var y = event.offsetY;
+      //console.log("MOUSE: "+x+" "+y);
+      // var coords = "X coords: " + x + ", Y coords: " + y;
+      // document.getElementById("demo").innerHTML = coords;
+      for(var i=0;i<cols;i++){
+        for(var j=0;j<rows;j++){
+          var cell = grid[i][j];
+          if(cell.contains(x, y)){
+            if(cell.filled==true){
+              cell.clear(ctx);
+            }
+            else{
+              cell.filled=true;
+            }
+            //document.getElementById("demo").innerHTML = countNeighbors(i,j);
+            drawGrid();
+          }
+        }
+      }
+  }
+}
+
+function clearButton(){
+  if(loading>0){
+
+  }
+  else{
+    clearGrid();
+  }
 }
 
 function clearGrid(){
@@ -73,18 +90,23 @@ function clearGrid(){
 }
 
 function randomize(){
-  clearGrid();
-  for(var i=0;i<cols;i++){
-    for(var j=0;j<rows;j++){
-      if(Math.random(1)<0.5){
-        grid[i][j].filled = true;
-      }
-      else{
-        grid[i][j].filled = false;
+  if(loading>0){
+
+  }
+  else{
+    clearGrid();
+    for(var i=0;i<cols;i++){
+      for(var j=0;j<rows;j++){
+        if(Math.random(1)<0.5){
+          grid[i][j].filled = true;
+        }
+        else{
+          grid[i][j].filled = false;
+        }
       }
     }
+    drawGrid();
   }
-  drawGrid();
 }
 
 function drawGrid(){
@@ -167,33 +189,37 @@ function nextGeneration(){
   drawGrid();
 }
 
-// function abort(){
-//   clearTimeout(timeout);
-//   loading = 0;
-//   ctx.clearRect(0,0,canvas.width,canvas.height);
-//   drawEmpty();
-//   var gens = document.getElementById("demo").innerHTML = "generations left: ";
-// }
+function abort(){
+  clearTimeout(timeout);
+  loading = 0;
+  clearGrid();
+  var gens = document.getElementById("demo").innerHTML = "generations left: ";
+}
 
-// function drawOutGenerations(population, generations){
-//   var gens = document.getElementById("demo").innerHTML = "generations left: " + generations;
-//   draw(population);
-//   timeout = setTimeout(function (){
-//     loading++;
-   
-//     if(generations==0){
-//       loading=0;
-//       return;
-//     }
-//     var neighborsOfPopulation = neighborArray(population);
-//     var nextGen = nextGeneration(neighborsOfPopulation,population);
-//     ctx.clearRect(0,0,canvas.width,canvas.height);
+function getGenerations(){
+  if(loading>0){
 
-//     gens = generations;
-//     drawOutGenerations(nextGen,generations-1);
-//   }, 1000);
+  }
+  else{
+    var num = document.getElementById("gen").value;
+    drawOutGenerations(num);
+  }
+}
 
-// } 
+function drawOutGenerations(generations){
+  loading++;
+  var gens = document.getElementById("demo").innerHTML = "generations left: " + generations;
+  timeout = setTimeout(function (){
+    if(generations==0){
+      loading=0;
+      return;
+    }
+    gens = generations;
+    nextGeneration();
+    drawOutGenerations(generations-1);
+  }, 1000);
+
+} 
 
 
 
