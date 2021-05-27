@@ -25,21 +25,30 @@ function make2DArray(m, n){
   return arr;
 }
 
-function init () {
-  canvas = document.getElementById('gameBoard');
-  ctx = canvas.getContext('2d');
-
+function resizeCanvas() {
   cols = Math.floor(canvas.width/w);
   rows = Math.floor(canvas.height/w);
   grid = make2DArray(cols,rows);
-
-  for(var i=0;i<cols;i++){
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+    for(var i=0;i<cols;i++){
     for(var j=0;j<rows;j++){
       grid[i][j] = new Cell(i*w, j*w, w);
     }
   }
-  //randomize();
   drawGrid();
+}
+
+
+
+function init () {
+  canvas = document.getElementById('gameBoard');
+  ctx = canvas.getContext('2d');
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas, false);
+  resizeCanvas();
+
+  //randomize();
   //console.log(grid);
 }
 

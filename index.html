@@ -3,22 +3,26 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
-    <title>repl.it</title>
+    <title>ChristofB7 - JS Game of Life</title>
     <link href="style.css" rel="stylesheet" type="text/css" />
   </head>
-  <body>
-    <script src="script.js"></script>
-    <script src="cell.js"></script>
-    <canvas id="gameBoard" width="200" height="200" onclick="clickOn(event)"></canvas>
-    <p> paragraph </p>
-    <button onclick="getGenerations()">Draw out Generations</button>
-    <input id="gen" type="number" value="2" style="width:60px;"/>
-    <button onclick="abort()">Abort</button>
-    <br><br>
-    <button onclick="randomize()">Randomize</button>
-    <button onclick="clearButton()">Clear</button>
-
-    <p id="demo"></p>
-
+    <body>
+      <script src="script.js"></script>
+      <script src="cell.js"></script>
+      <canvas id="gameBoard" onclick="clickOn(event)"></canvas>
+      <div class="row">
+        <div class="sub">
+          <div class="container">
+            <input class="button" type="button" onclick="getGenerations()" value="Draw Out Generations">
+            <input class="button" id="gen" type="number" value="2" style="width:60px;"/>
+            <input class="button" type="button" onclick="abort()"value="Abort">
+            <input class="button" type="button" value="Randomize" onclick="randomize()">
+            <input class="button" type="button" value="Clear" onclick="clearButton()">
+            <p id="demo" style="margin-left: 20px; width:100px; height:35px;">generations left: </p>
+          </div>
+        </div>
+      </div>
+      
   </body>
+
 </html>

@@ -1,12 +1,32 @@
 body {
-  background: #fff
-  color: #f8f8f8;
+  background: #fff;
+  color: #000000;
+}
+
+.button{
+  margin: 10px;
+  position: relative;
+  display: inline-block;
+  flex: 1;
 }
 
 canvas {
+  position: absolute;
   background: #f8f8f8;
   padding: 0;
   margin: 0 auto;
   margin-bottom:1rem;
   display:block;
+  overflow: hidden;
+}
+.sub {
+  position: absolute;
+  bottom: 0;
+  left: 20px;
+
+}
+.container {
+  position: relative;
+  background-color:#fff;
+  display: flex;
 }
