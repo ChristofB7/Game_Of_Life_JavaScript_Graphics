@@ -7,18 +7,19 @@ var grid;
 var cols = 20;
 var rows = 20;
 var w = 20;
-//
-//3.0 Fix the x and y
-//3.5 When you click on a box it populates that box
-  //Start by identifying where on the 2d array...
-  //then create a live cell there in lifeCycle.
-  //then go clear canvas
-  //then repopulate
-  //make the paused generation grey colored and not black.
-//4. fix the canvas to fit the screen better - maybe
-//5. add a time buffer
+
+var lifeCycle;
 
 document.addEventListener('DOMContentLoaded', init);
+
+function make2DArray(m, n){
+  let arr = new Array(m); // create an empty array of length n
+  for (var i = 0; i < m; i++) {
+    arr[i] = new Array(n); // make each element an array
+  }
+  //console.log(arr); 
+  return arr;
+}
 
 function init () {
   canvas = document.getElementById('gameBoard');
@@ -33,33 +34,46 @@ function init () {
       grid[i][j] = new Cell(i*w, j*w, w);
     }
   }
-
   //randomize();
   drawGrid();
-
   //console.log(grid);
-
 }
 
-function showCoords(event) {
+function clickOn(event) {
   var x = event.offsetX;
   var y = event.offsetY;
-  console.log("MOUSE: "+x+" "+y);
+  //console.log("MOUSE: "+x+" "+y);
   // var coords = "X coords: " + x + ", Y coords: " + y;
   // document.getElementById("demo").innerHTML = coords;
   for(var i=0;i<cols;i++){
     for(var j=0;j<rows;j++){
-      if(grid[i][j].contains(x, y)){
-        grid[i][j].filled=true;
+      var cell = grid[i][j];
+      if(cell.contains(x, y)){
+        if(cell.filled==true){
+          cell.clear(ctx);
+        }
+        else{
+          cell.filled=true;
+        }
+        document.getElementById("demo").innerHTML = countNeighbors(i,j);
         drawGrid();
-      }
-      else{
       }
     }
   }
+
+}
+
+function clearGrid(){
+  for(var i=0;i<cols;i++){
+    for(var j=0;j<rows;j++){
+      grid[i][j].clear(ctx);
+    }
+  }
+  drawGrid();
 }
 
 function randomize(){
+  clearGrid();
   for(var i=0;i<cols;i++){
     for(var j=0;j<rows;j++){
       if(Math.random(1)<0.5){
@@ -70,6 +84,7 @@ function randomize(){
       }
     }
   }
+  drawGrid();
 }
 
 function drawGrid(){
@@ -80,40 +95,20 @@ function drawGrid(){
     }
 }
 
-function make2DArray(m, n){
-  let arr = new Array(m); // create an empty array of length n
-  for (var i = 0; i < m; i++) {
-    arr[i] = new Array(n); // make each element an array
-  }
-  //console.log(arr); 
-  return arr;
-}
-
-// function drawEmpty(){
-//   for(var i=0;i<6;i++){
-//       for(var j=0;j<7;j++){
-//         var x = i*30;
-//         var y=j*30;
-//         ctx.strokeRect(x,y,30,30);
-//       }
-//     }
-// }
-
-
-
-function countNeighborsWithLoop(posX,posY,lifeCycle){
+function countNeighbors(posX,posY){
   var neighbors = 0;
-  const dimensions = [lifeCycle.length,lifeCycle[0].length];
  
   for(var i=-1;i<2;i++){
     for(var j=-1;j<2;j++){
-      var n = (posX+i+dimensions[0])%dimensions[0];
-      var m = (posY+j+dimensions[1])%dimensions[1];
-      if(lifeCycle[n][m]==1){
+      var n = (posX+i+cols)%cols;
+      var m = (posY+j+rows)%rows;
+      if(grid[n][m].filled==true){
         if(i==0&&j==0){
           continue;
         }
         else{
+          console.log("current cell "+posX+" "+posY);
+          console.log("Neighbor "+(posX+i)+ " "+(posY+j));
           neighbors++;
         }
       }
@@ -122,53 +117,50 @@ function countNeighborsWithLoop(posX,posY,lifeCycle){
   return neighbors;
 }
 
-function neighborArray(lifeCycle){
+function neighborArray(){
   var nArray = []
-  const dimensions = [lifeCycle.length,lifeCycle[0].length];
-  for(var i=0;i<dimensions[0];i++){
+  for(var i=0;i<cols;i++){
     var insideArr=[];
-    for(var j=0;j<dimensions[1];j++){
-      insideArr.push(countNeighborsWithLoop(i,j,lifeCycle));
+    for(var j=0;j<rows;j++){
+      insideArr.push(countNeighbors(i,j));
     }
     nArray.push(insideArr);
   }
   return nArray;
 }
 
-function isLive(x,y,array){
-  if(array[x][y]==1){
-    return true;
-  }
-  else{
-    return false;
-  }
-}
-
-function nextGeneration(neighbors,lifeCycle){
-  const dimensions = [neighbors.length,neighbors[0].length];
+function nextGeneration(){
+  var neighbors = neighborArray();
   //rules are
   //1. Any live cell with fewer than 2 live neighbors dies
   //2. Any live cell with two or 3 lives on
   //3. any live cell with more than 3 live neighbors dies
   //4. any dead cell with exactly 3 live neighbors becomes a live cell.
-  var population=[];
-  for(var i =0;i<dimensions[0];i++){
-    var populationRow=[];
-    for(var j=0;j<dimensions[1];j++){
+  var population = make2DArray(cols,rows);
+
+  for(var i =0;i<cols;i++){
+    for(var j=0;j<rows;j++){
+      var cell = grid[i][j];
       //rule 2
-      if(neighbors[i][j]>1&&neighbors[i][j]<4&&isLive(i,j,lifeCycle)){
-        populationRow.push(1);
+      if(neighbors[i][j]>1&&neighbors[i][j]<4&&cell.filled==true){
+        population[i][j]=1;
       }
-      else if(neighbors[i][j]==3&&isLive(i,j,lifeCycle)==false){
-        populationRow.push(1);
+      else if(neighbors[i][j]==3&&cell.filled == false){
+        population[i][j]=1;
       }
       else{
-        populationRow.push(0);
+        population[i][j]=0;
       }
     }
-    population.push(populationRow);
   }
-  return population;
+
+  clearGrid();
+  for(var i=0;i<cols;i++){
+    for(var j=0;j<rows;j++){
+      grid[i][j].filled = population[i][j];
+    }
+  }
+  drawGrid();
 }
 
 // function onClickDraw(){

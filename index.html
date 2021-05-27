@@ -9,11 +9,14 @@
   <body>
     <script src="script.js"></script>
     <script src="cell.js"></script>
-    <canvas id="gameBoard" width="200" height="200" onclick="showCoords(event)"></canvas>
+    <canvas id="gameBoard" width="200" height="200" onclick="clickOn(event)"></canvas>
     <p> paragraph </p>
-    <button onclick="">Click Me</button>
+    <button onclick="nextGeneration()">NextGen</button>
     <input id="gen" type="number" style="width:60px;"/>
     <button onclick="">Abort</button>
+    <br>
+    <button onclick="randomize()">Randomize</button>
+    <button onclick="clearGrid()">Clear</button>
 
     <p id="demo"></p>
 

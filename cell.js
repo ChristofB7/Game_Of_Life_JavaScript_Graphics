@@ -16,6 +16,12 @@ Cell.prototype.show = function(ctx){
   }
 }
 
+Cell.prototype.clear = function(ctx){
+  this.filled = false;
+  ctx.clearRect(this.x,this.y,this.w,this.w);
+}
+
+
 Cell.prototype.contains = function(x,y){
   return (x>this.x && x<this.x + this.w && 
           y>this.y && y<this.y + this.w);
