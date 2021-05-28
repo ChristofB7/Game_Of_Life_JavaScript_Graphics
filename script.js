@@ -235,7 +235,6 @@ function drawOutGenerations(generations){
     gens = generations;
     nextGeneration();
     drawOutGenerations(generations-1);
-    console.log(timeSlider.value/100);
   }, 1000*(timeSlider.value/100));
 
 } 

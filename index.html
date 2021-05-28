@@ -16,13 +16,13 @@
       <div class="sub" id="mydiv">
         <div class="subHeader"id="mydivheader">Click Here to Move</div>
         <div class="container">
-          <input class="button" type="button" onclick="getGenerations()" value="Draw Out Generations">
+          <input class="button" type="button" onclick="getGenerations()" value="PLAY">
           <p style="margin-top: 20px"> <e> SPEED: </e> </p>
-          <input id="speed" class="range" type="range" min="10" max="200" value="100">
-          <input class="button" id="gen" type="number" value="15" style="width:60px;"/>
-          <input class="button" type="button" onclick="abort()"value="Abort">
-          <input class="button" type="button" value="Randomize" onclick="randomize()">
-          <input class="button" type="button" value="Clear" onclick="clearButton()">
+          <input id="speed" class="range" type="range" min="1" max="150" value="50">
+          <input class="button" id="gen" type="number" value="1500" style="width:60px;"/>
+          <input class="button" type="button" onclick="abort()"value="STOP">
+          <input class="button" type="button" value="RANDOM" onclick="randomize()">
+          <input class="button" type="button" value="CLEAR" onclick="clearButton()">
           <p id="demo" style="margin-left: 20px; width:100px; height:35px;">generations left: </p>
         </div>
       </div>
@@ -40,7 +40,7 @@
       Each cell is either alive (filled) or dead.
     </h4>
     <h5>Click on a cell to toggle it</h5>
-    <h5><e>Click see play the action!</e></h5>
+    <h5><e>Click play to see the action!</e></h5>
     </div> 
   </a>
 
