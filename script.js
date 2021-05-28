@@ -9,6 +9,7 @@ var rows;
 var w = 20;
 
 var lifeCycle;
+var timeSlider;
 
 document.addEventListener('DOMContentLoaded', init);
 
@@ -31,12 +32,22 @@ function resizeCanvas() {
   grid = make2DArray(cols,rows);
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
-    for(var i=0;i<cols;i++){
+  for(var i=0;i<cols;i++){
     for(var j=0;j<rows;j++){
       grid[i][j] = new Cell(i*w, j*w, w);
     }
   }
   drawGrid();
+}
+
+function drawName(){
+  var midX = cols/2;
+  var midY = rows/2;
+  for(var i=0;i<5;i++){
+    for(var j=0;j<3;j++){
+
+    }
+  }
 }
 
 function init () {
@@ -45,10 +56,9 @@ function init () {
   resizeCanvas();
   window.addEventListener('resize', resizeCanvas, false);
   resizeCanvas();
+  randomize();
   dragElement(document.getElementById("mydiv"));
-
-  //randomize();
-  //console.log(grid);
+  timeSlider = document.getElementById("speed");
 }
 
 function clickOn(event) {
@@ -225,7 +235,8 @@ function drawOutGenerations(generations){
     gens = generations;
     nextGeneration();
     drawOutGenerations(generations-1);
-  }, 1000);
+    console.log(timeSlider.value/100);
+  }, 1000*(timeSlider.value/100));
 
 } 
 

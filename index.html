@@ -17,7 +17,9 @@
         <div class="subHeader"id="mydivheader">Click Here to Move</div>
         <div class="container">
           <input class="button" type="button" onclick="getGenerations()" value="Draw Out Generations">
-          <input class="button" id="gen" type="number" value="2" style="width:60px;"/>
+          <p style="margin-top: 20px"> <e> SPEED: </e> </p>
+          <input id="speed" class="range" type="range" min="10" max="200" value="100">
+          <input class="button" id="gen" type="number" value="15" style="width:60px;"/>
           <input class="button" type="button" onclick="abort()"value="Abort">
           <input class="button" type="button" value="Randomize" onclick="randomize()">
           <input class="button" type="button" value="Clear" onclick="clearButton()">
@@ -31,7 +33,7 @@
     <span id='close' onclick='this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode); return false;'>
     x
     </span>
-    <img src =".\caution.jpg" height="50px" width="70px" alt="some description"/> 
+    <img src =".\caution.jpg" height="50px" width="70px" alt="STOP!"/> 
     <h3>Game of Life Rules</h3>
     <h4>
       Game of life is a famous celluar automata. <br>
