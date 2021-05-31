@@ -26,6 +26,7 @@ function make2DArray(m, n){
   return arr;
 }
 
+
 function resizeCanvas() {
   cols = Math.floor(canvas.width/w);
   rows = Math.floor(canvas.height/w);
@@ -40,25 +41,16 @@ function resizeCanvas() {
   drawGrid();
 }
 
-function drawName(){
-  var midX = cols/2;
-  var midY = rows/2;
-  for(var i=0;i<5;i++){
-    for(var j=0;j<3;j++){
-
-    }
-  }
-}
-
 function init () {
   canvas = document.getElementById('gameBoard');
   ctx = canvas.getContext('2d');
   resizeCanvas();
   window.addEventListener('resize', resizeCanvas, false);
   resizeCanvas();
-  randomize();
   dragElement(document.getElementById("mydiv"));
   timeSlider = document.getElementById("speed");
+  drawName();
+  drawGrid();
 }
 
 function clickOn(event) {
@@ -81,6 +73,7 @@ function clickOn(event) {
             else{
               cell.filled=true;
             }
+            console.log(i,j);
             //document.getElementById("demo").innerHTML = countNeighbors(i,j);
             drawGrid();
           }
@@ -210,7 +203,6 @@ function nextGeneration(){
 function abort(){
   clearTimeout(timeout);
   loading = 0;
-  clearGrid();
   var gens = document.getElementById("demo").innerHTML = "generations left: ";
 }
 
@@ -281,4 +273,43 @@ function dragElement(elmnt) {
   }
 }
 
+function drawName(){
+  drawC();drawH();drawR();drawI();drawS();drawT();drawO();drawF();
+  drawB();drawE1();drawL();drawI2();drawS2();drawL2();drawE2();
+}
 
+function drawC(){
+  grid[7][6].filled=true;grid[6][6].filled=true;grid[5][6].filled=true;grid[5][7].filled=true;grid[5][8].filled=true;grid[5][9].filled=true;grid[5][10].filled=true;grid[6][10].filled=true;grid[7][10].filled=true;
+}
+function drawH(){
+  grid[9][6].filled=true;grid[9][7].filled=true;grid[9][8].filled=true;grid[9][9].filled=true;grid[9][10].filled=true;grid[10][8].filled=true;grid[11][6].filled=true;grid[11][7].filled=true;grid[11][8].filled=true;grid[11][9].filled=true;grid[11][10].filled=true;
+}
+function drawR(){
+  grid[13][6].filled=true;grid[13][7].filled=true;grid[13][8].filled=true;grid[13][9].filled=true;grid[13][10].filled=true;grid[14][6].filled=true;grid[15][6].filled=true;grid[15][7].filled=true;grid[15][8].filled=true;grid[14][9].filled=true;grid[15][10].filled=true;
+}
+function drawI(){
+  grid[17][6].filled=true;grid[18][6].filled=true;grid[19][6].filled=true;grid[18][7].filled=true;grid[18][8].filled=true;grid[18][9].filled=true;grid[17][10].filled=true;grid[18][10].filled=true;grid[19][10].filled=true;
+}
+function drawS(){grid[21][10].filled=true;grid[22][10].filled=true;grid[23][10].filled=true;  grid[23][9].filled=true;grid[23][8].filled=true;grid[22][8].filled=true;grid[21][8].filled=true; grid[21][7].filled=true;grid[21][6].filled=true;grid[22][6].filled=true;grid[23][6].filled=true;
+}
+function drawT(){grid[25][6].filled=true;grid[26][6].filled=true;grid[27][6].filled=true;grid[26][7].filled=true;grid[26][8].filled=true;grid[26][9].filled=true;grid[26][10].filled=true;  
+}
+function drawO(){grid[30][6].filled=true;grid[31][6].filled=true;grid[31][7].filled=true;grid[31][8].filled=true;grid[31][9].filled=true;grid[31][10].filled=true;grid[30][10].filled=true;grid[29][10].filled=true;grid[29][9].filled=true;grid[29][8].filled=true;grid[29][7].filled=true;grid[29][6].filled=true;grid[30][6].filled=true;
+}
+function drawF(){grid[33][6].filled=true;grid[34][6].filled=true;grid[35][6].filled=true;grid[33][7].filled=true;grid[33][8].filled=true;grid[33][9].filled=true;grid[33][10].filled=true;grid[34][9].filled=true;
+}
+function drawB(){grid[5][12].filled=true;grid[6][12].filled=true;
+grid[7][12].filled=true;grid[7][13].filled=true;grid[5][13].filled=true;grid[5][14].filled=true;grid[5][15].filled=true;grid[6][14].filled=true;grid[7][15].filled=true;grid[7][16].filled=true;grid[6][16].filled=true;grid[5][16].filled=true;
+}
+function drawE1(){grid[9][12].filled=true;grid[10][12].filled=true;grid[11][12].filled=true;grid[9][13].filled=true;grid[9][14].filled=true;grid[10][14].filled=true;grid[9][15].filled=true;grid[9][16].filled=true;grid[10][16].filled=true;grid[11][16].filled=true;
+}
+function drawL(){grid[13][12].filled=true;grid[13][13].filled=true;grid[13][14].filled=true;grid[13][15].filled=true;grid[13][16].filled=true;grid[14][16].filled=true;
+}
+function drawI2(){grid[16][12].filled=true;grid[17][12].filled=true;grid[18][12].filled=true;grid[17][13].filled=true;grid[17][14].filled=true;grid[17][15].filled=true;grid[16][16].filled=true;grid[17][16].filled=true;grid[18][16].filled=true;
+}
+function drawS2(){grid[20][12].filled=true;grid[21][12].filled=true;grid[22][12].filled=true;grid[20][13].filled=true;grid[20][14].filled=true;grid[21][14].filled=true;grid[22][14].filled=true;grid[22][15].filled=true;grid[22][16].filled=true;grid[21][16].filled=true;grid[20][16].filled=true;
+}
+function drawL2(){grid[24][12].filled=true;grid[24][13].filled=true;grid[24][14].filled=true;grid[24][15].filled=true;grid[24][16].filled=true;grid[25][16].filled=true;
+}
+function drawE2(){grid[27][12].filled=true;grid[28][12].filled=true;grid[29][12].filled=true;grid[27][13].filled=true;grid[27][14].filled=true;grid[28][14].filled=true;grid[27][15].filled=true;grid[27][16].filled=true;grid[28][16].filled=true;grid[29][16].filled=true;
+}
