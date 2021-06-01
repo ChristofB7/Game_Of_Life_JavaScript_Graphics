@@ -11,23 +11,23 @@
     <script src="script.js"></script>
     <script src="cell.js"></script>
     <canvas id="gameBoard" onclick="clickOn(event)"></canvas>
-    
+
     <div class="row">
       <div class="sub" id="mydiv">
         <div class="subHeader"id="mydivheader">Click Here to Move</div>
         <div class="container">
           <button onclick="getGenerations()" style="background:transparent; border:0;" height="20px" width="20px">
             <img src="./play.png" alt="" id="playimg" height="40px" width="40px">
-          </button> 
+          </button>
           <input id="speed" class="range" type="range" min="1" max="150" value="50"></input>
           <img src="./speed.png" alt="" height="60px" width="60px" style="margin-top:4px">
 
 
           <button onclick="randomize()" style="background:transparent; border:0;" height="20px" width="20px">
-            <img src="./random.png" alt="" height="60px" width="60px" style="margin-top:4px">
+            <img src="./random.png" alt="" id="playimg" height="40px" width="40px">
           </button>
           <button onclick="clearGrid()" style="background:transparent; border:0;" height="20px" width="20px">
-            <img src="./clear.PNG" alt="" height="60px" width="60px" style="margin-top:4px">
+            <img src="./clear.PNG" alt="" id="playimg" height="40px" width="40px">
           </button>
           <input class="button" id="gen" type="number" value="1500" style="width:60px;"/>
           <p id="demo" style="margin-left: 20px; width:100px; height:35px;">generations left: </p>
@@ -40,7 +40,7 @@
     <span id='close' onclick='this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode); return false;'>
     x
     </span>
-    <img src =".\caution.jpg" height="50px" width="70px" alt="STOP!"/> 
+    <img src =".\caution.jpg" height="50px" width="70px" alt="STOP!"/>
     <h3>Game of Life Rules</h3>
     <h4>
       Game of life is a famous celluar automata. <br>
@@ -48,7 +48,7 @@
     </h4>
     <h5>Click on a cell to toggle it</h5>
     <h5><e>Click play to see the action!</e></h5>
-    </div> 
+    </div>
   </a>
 
   </body>
