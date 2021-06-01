@@ -208,11 +208,13 @@ function abort(){
 
 function getGenerations(){
   if(loading>0){
-
+    abort();
+    document.getElementById("playimg").src = "./play.png";
   }
   else{
     var num = document.getElementById("gen").value;
     drawOutGenerations(num);
+    document.getElementById("playimg").src = "./pause.png";
   }
 }
 
